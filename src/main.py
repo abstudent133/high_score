@@ -2,7 +2,7 @@
 
 # User athefcation thingy
 
-# asking user if they want to play tick toe ornumbers guessing game or view high scores or quit 
+# asking user if they want to play tick toe or numbers guessing game or view high scores or quit 
 # tick tack toe option is 1 
 # guessing game is 2
 # view high score is 3 
