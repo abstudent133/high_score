@@ -9,5 +9,16 @@
 #   asking the user guess a number bewtween 1 - 1000 
 #   save this as a variable under the name guess 
 #   if user guess is exact then add ten to score 
-#       else if guess is 10 
-#         
+#       # if (guess >= random_num - 10 and guess < random_num) or (guess <= random_num + 10 and guess > random_num)
+            #add seven to the score 
+        # if (guess >= random_num - 20 and guess < random_num) or (guess <= random_num + 20 and guess > random_num)
+            #add five to score
+        # if (guess >= random_num - 30 and guess < random_num) or (guess <= random_num + 30 and guess > random_num)
+#         # add three to score
+        # if (guess >= random_num - 40 and guess < random_num) or (guess <= random_num + 40 and guess > random_num)
+            # add two to score
+        # if (guess >= random_num - 50 and guess < random_num) or (guess <= random_num + 50 and guess > random_num)
+            # add one to score
+        #else:
+            #show the user you got no points
+            
