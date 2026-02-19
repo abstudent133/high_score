@@ -30,11 +30,65 @@
 #parameters are this dictionary
 #actions:
     #open the correct csv
-    #for each line in the dictionary 
-        #write it in the csv
+        #for each line in the dictionary 
+                #write it in the csv
 #Pseudocode
 #import csv
 
-#access_csv function
-#parameters are (tic_or_num)
-    #open the high_
+#access csv
+# parameters: game_name
+# determine which game file should be opened
+# if game_name is "tic_tac_toe"
+    # set file_name to tic_tac_toe_high_scores.csv
+# else if game_name is "number_guess"
+    # set file_name to number_guess_high_scores.csv
+# open the selected csv file
+# create empty dictionary called score_dictionary
+# for each row in the csv file
+    # first value should be the user id (key)
+    # remaining values should be the list of top ten scores
+    # convert score values from string to integer
+    # store in dictionary as:
+        # key = user id
+        # value = list of scores
+# close the file
+# return score_dictionary
+
+#update high scores function
+# parameters: new_score, score_dictionary, username, score_type
+# if score_type is "personal"
+    # search dictionary for username as key
+# else if score_type is "overall"
+    # search dictionary for key "overall"
+# get the score list for that key
+# check if new_score is greater than the lowest score in the list
+    # if it is greater
+        # add new_score to the list
+        # sort the list from highest to lowest
+        # remove the lowest score so only top ten remain
+# update dictionary with modified score list
+# return updated dictionary
+
+# update csv function
+# parameters: updated_dictionary, game_name
+# determine which csv file to open based on game_name
+# open the file in write mode (this will overwrite old data)
+# for each key and score list in updated_dictionary
+    # write a row to the csv
+        # first value = user id
+        # remaining values = top ten scores
+# close the file
+
+# formate individual function
+# parameters: score_list, username
+# display header that includes the username
+# sort score_list from highest to lowest
+# loop through scores
+    # display rank number and score
+   
+#formate overall funtion
+#parameters: dictionary
+# gather all scores from dictionary
+# sort from highest to lowest
+# take top five
+# display username associated with each score
