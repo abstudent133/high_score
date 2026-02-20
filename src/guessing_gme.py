@@ -21,4 +21,10 @@
             # add one to score
         #else:
             #show the user you got no points
-            
+    # ask user if they want to play again (yes/no)
+        # if yes
+            # quit equals true
+        # else:
+           # quit still equals false    
+
+# at end, send back to signed in menu   

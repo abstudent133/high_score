@@ -11,7 +11,7 @@
 # - Verify user logged in
 # If username and password match
 # Print "You've succesfully signed in"
-# Exit loop (take them to the game)
+# Exit loop (take them to the game/signed in menu)
 # Else
 # Print "Wrong username or password input"
 # Print "Try again? (yes / no)"
@@ -19,15 +19,11 @@
 
 # - All long information stored in separate file
 
-# - Log out => Takes them to log in screen where they have the option to end program
-# If choice is no
-# Take them to main menu to EXIT
-# Else take them back to sign in
 
 
 
 # LD 1st User Sign up and Authentication
-
+# \/ By LD
 # Function that will be called if the user selects to sign up
 # This function will ask the user for a username in a while loop
 # Once a username has been typed in, open the csv for usernames and passwords
