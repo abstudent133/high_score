@@ -1,4 +1,4 @@
-# \/ By IC
+# \/ By AB
 #This is the pseudocode and code for the high score tracking part of this project
 #personal project analysis
 
