@@ -55,11 +55,16 @@ while quit != True:
         # if yes
     if "yes":
             # quit equals true
+        print("goodbye")
         quit == True
+        break
         # else:
     else:
            # quit still equals false  
         quit == False  
+else:
+     quit == True 
+     print("goodbye")
 
 # at end, send back to signed in menu   
 quit == True
