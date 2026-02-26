@@ -53,18 +53,19 @@ def play_tic_tac_toe():
                 while True:
                     comp_row = random.randint(0,2)
                     comp_col = random.randint(0,2)
-                    if board[comp_row][comp_col] != "":
+                    if board[comp_row][comp_col] != " ":
                         continue
                     else:
                         board[comp_row][comp_col] = "O"
                         current_player = "X"
+                        break
                     # choose random empty space
                 # place "O" in chosen space
             # check if current_player has won
-            win = False
+            win = ""
             if board[0] == ["X","X","X"] or board[1] == ["X","X","X"] or board[2] == ["X","X","X"]:
                 win = True
-            elif board[0][0] == "X" and board[1][0] == "x" and board[2][0] == "X":
+            elif board[0][0] == "X" and board[1][0] == "X" and board[2][0] == "X":
                 win = True
             elif board[0][1] == "X" and board[1][1] == "X" and board[2][1] == "X":
                 win = True
@@ -74,19 +75,36 @@ def play_tic_tac_toe():
                 win = True
             elif board[0][2] == "X" and board[1][1] == "X" and board[2][0] == "X":
                 win = True
-                # check rows
+            elif board[0] == ["O","O","O"] or board[1] == ["O","O","O"] or board[2] == ["O","O","O"]:
+                win = False
+            elif board[0][0] == "O" and board[1][0] == "O" and board[2][0] == "O":
+                win = False
+            elif board[0][1] == "O" and board[1][1] == "O" and board[2][1] == "O":
+                win = False
+            elif board[0][2] == "O" and board[1][2] == "O" and board[2][2] == "O":
+                win = False
+            elif board[0][0] == "O" and board[1][1] == "O" and board[2][2] == "O":
+                win = False
+            elif board[0][2] == "O" and board[1][1] == "O" and board[2][0] == "O":
+                win = False
+            elif board[0] != [" "," "," "] and board[1] != [" "," "," "] and board[2] != [" "," "," "]:
+                win = False
+            else:
+                continue
+                 # check rows
                 # check columns
                 # check diagonals
                 # if win condition met
-        if win == True:
-            # add 1 to player_score
-            player_score += 1
-            # display winner message
-            print("You WIN!")
-            # set game_over to True
-            game_over = True
-        else:
-            print("You lost.")
+            if win == True:
+                # add 1 to player_score
+                player_score += 1
+                # display winner message
+                print("You WIN!")
+                # set game_over to True
+                game_over = True
+            elif win == False:
+                print("You lose.")
+            
         
         # after round ends
         # add 1 to round_counter by 1
