@@ -13,7 +13,7 @@ def play_tic_tac_toe():
         print(f"You are on round {round_counter}/10.")
         # create empty tic tac toe board
         board_num = [[1,2,3],[4,5,6],[7,8,9]]
-        board = [["","",""],["","",""],["","",""]]
+        board = [[" "," "," "],[" "," "," "],[" "," "," "]]
             # board should be 3x3 grid
             # each space starts empty
         # set current_player to "X" (user)
@@ -25,12 +25,13 @@ def play_tic_tac_toe():
             # display current board
 
             print(f"{board[0][0]}|{board[0][1]}|{board[0][2]}\n"
+                  f"_____\n"
                   f"{board[1][0]}|{board[1][1]}|{board[1][2]}\n"
+                  f"_____\n"
                   f"{board[2][0]}|{board[2][1]}|{board[2][2]}\n")
             
             valid = [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]]
 
-            choosen = []
 
             # if current_player is "X"
             if current_player == "X":
@@ -39,9 +40,8 @@ def play_tic_tac_toe():
                 column = int(input("Please input the column number of the positon you want to place here: "))
                 # check if space is valid and empty
                     # if valid, place "X" in that space
-                if [row-1,column-1] in valid and board[row-1][column-1] == "":
+                if [row-1,column-1] in valid and board[row-1][column-1] == " ":
                     board[row-1][column-1] = "X"
-                    choosen.append(board_num[row-1][column-1])
                     current_player = "O"
                     # if not valid, ask again
                 else:
@@ -61,27 +61,43 @@ def play_tic_tac_toe():
                     # choose random empty space
                 # place "O" in chosen space
             # check if current_player has won
-            if
+            win = False
+            if board[0] == ["X","X","X"] or board[1] == ["X","X","X"] or board[2] == ["X","X","X"]:
+                win = True
+            elif board[0][0] == "X" and board[1][0] == "x" and board[2][0] == "X":
+                win = True
+            elif board[0][1] == "X" and board[1][1] == "X" and board[2][1] == "X":
+                win = True
+            elif board[0][2] == "X" and board[1][2] == "X" and board[2][2] == "X":
+                win = True
+            elif board[0][0] == "X" and board[1][1] == "X" and board[2][2] == "X":
+                win = True
+            elif board[0][2] == "X" and board[1][1] == "X" and board[2][0] == "X":
+                win = True
                 # check rows
                 # check columns
                 # check diagonals
                 # if win condition met
-                    # if current_player is "X"
-                        # add 1 to player_score
-                    # display winner message
-                    # set game_over to True
-            # else check if board is full (tie)
-                # if tie
-                    # display tie message
-                    # set game_over to True
-            # if game not over
-                # switch current_player
-                    # if "X" change to "O"
-                    # if "O" change to "X"
+        if win == True:
+            # add 1 to player_score
+            player_score += 1
+            # display winner message
+            print("You WIN!")
+            # set game_over to True
+            game_over = True
+        else:
+            print("You lost.")
+        
         # after round ends
         # add 1 to round_counter by 1
+        round_counter += 1
     # after 10 rounds are complete
+    if round_counter == 10:
     # display final score message
         # "You won X out of 10 rounds."
+        print(f"You won {player_score}/10 rounds.")
     #return final score
+    return player_score
+
+play_tic_tac_toe()
 
