@@ -9,30 +9,6 @@ import csv
 # Ask user to enter password
 # Store info as password
 
-# Otions for sign in menu
-def display_menu():
-    print("1. Sign in")
-    print("2. Sing up")
-    print("3. Admin sign in")
-    print("4. Exit") 
-
-# Main menu
-def main():
-    while True:
-        display_menu()
-        choice = input("Enter your choice: ")
-        if choice == "1":
-            sign_in()
-        elif choice == "2":
-            sign_up()   # Change name once the functioon is made
-        elif choice == "3":
-            admin_sign_in() # Change name once the function is made
-        elif choice == "4":
-            print("Thank you for using High Score! Goodbye!")
-            exit()
-        else:
-            print("Please enter a valid choice (1, 2, 3, or 4)")
-            main() # Return to main menu
 # - Verify user logged in
 # If username and password match
 # Print "You've succesfully signed in"
@@ -73,6 +49,7 @@ def sign_in():
 # Test code later once I have the CSV file
 
 # - All long information stored in separate file
+
 
 
 
@@ -121,7 +98,7 @@ def pass_requirements(password):
 
 # HELPER FUNCTION
 # this function will take in two parameters: the string it is checking for and which column (ex: pass in username and column 0 when checking if username avaliable and password + 1 for checking if password avliable)
-def item_avaliable(string, column, key):
+def item_avaliable(string, column):
     # I need CSV to work on this
     # First, if column == 0, this is USERNAME
     # If column == 1, this is PASSWORD and I need to access the key to hash the given string BEFORE comparing
@@ -136,7 +113,7 @@ def item_avaliable(string, column, key):
     # elif column == 1:
         # for line in content:
             # the_key = line[2]
-            # if string(that has been hased by the_key) != line[1]
+            # if string(that has been hashed by the_key) != line[1]
                 # continue
             # else:
                 # the password already made matches the given string. Not a valid password
@@ -159,9 +136,22 @@ def item_avaliable(string, column, key):
 # Ask for username and password corresponding to user they want to remove
 # See LD's personal library to usnderstand how to remove row from csv
     # IN SHORT: open two files, one in and one out. In is original and is refereance point for what to keep and what to delete. If item something to KEEP, write it onto out file. If item is what we want DELETED, don't write it to outfile. Once that's done, use os to delete infile and use os to rename outfile to match original infile name (that way code doesn't break because we aren't trying to reference different file names)
-
-
-
-# ISABELLA EXAMPLE. DELETE LATER
-# if (20 >= 25 - 10 and 20 < 25) or (30 <= 25 + 10 and 20 > 25) <<< Example of if with numbers
-# if (guess >= random_num - 10 and guess < random_num) or (guess <= random_num + 10 and guess > random_num)
+def admin():
+    username = input("Enter the Admin Username:\n").strip()
+    valid_usrnm = item_avaliable(username, 0)
+    if valid_usrnm != True:
+        # Username MATCHES, this what I want. Now do password
+        pass
+    else:
+        print("Invalid username. Returning to Sign In Menu . . .")
+        # Go to that function? or it's in a while loop and thus return
+    password = input("Enter the Admin Password:\n").strip()
+    valid_pass = item_avaliable(password, 1)
+    if valid_pass != True:
+        # Password MATCHES, that what I want.
+        pass
+    else:
+        print("Invalid password. Returning to Sign In Menu . . .")
+        # Go to that function? or it's in a while loop and thus return
+    # IN THEORY the username and password are valid and now need to do the special admin capabilities
+    
