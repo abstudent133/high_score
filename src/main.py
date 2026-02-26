@@ -8,16 +8,19 @@
 # If choice is no (not sign in)
 # End the code
 # Else take them back to sign in
-
+from guessing_gme import guessing_game
 # \/ By IC
 # MENU FOR SIGNED IN
-# asking user if they want to play tick toe or numbers guessing game or view high scores or log out 
+print("tick tack toe = 1, guessing game = 2, view high score = 3 log out = 4")
 # tick tack toe option is 1 
 # guessing game is 2
 # view high score is 3 
 # log out is 4 
 #  if user choice is 1
+user_choice = input("please choose one of those numbers: ")
+if user_choice == "1":
 #      then play the function for number guessing game
+        guessing_game()
 #   # else if user choice is 2
 #       then play the tick tac toe function 
 #   # else if user choice is 3 
