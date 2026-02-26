@@ -63,6 +63,27 @@ def sign_in():
 # See password requirements
 # See helper function
 # Once user has given both a valid username and password, put the given information into the csv (using hashlib for the password) and move onto selecting a game to play
+def sign_up():
+    def get_password():
+        password = input("Enter the password you would like for your account:\n")
+        return password
+    while True:
+        username = input("Enter the username you would like for your account:\n").strip()
+        good_username = item_avaliable(username, 0)
+        if good_username == True:
+            # username was valid. Move onto password
+            break
+        else:
+            print("It seems that the username you typed in is already taken. Enter a different username")
+            continue
+    while True:
+        the_password = get_password()
+        if pass_requirements(the_password) == True and item_avaliable(the_password, 1) == True:
+            # password valid. add information
+            break
+        else:
+            # Check which thing the password didn't meet and tell the user so
+            print("Invalid pass")
 
 # PASSWORD REQUIREMENTS
 # length is >= 12
@@ -109,7 +130,10 @@ def item_avaliable(string, column):
                 # continue
             # else:
                 # the username already made matches the given string. Not a valid username
-                # break
+                # return False
+        # else:
+            # This will run if loop did not break. If it did not break, username was unique
+            # return True
     # elif column == 1:
         # for line in content:
             # the_key = line[2]
@@ -117,7 +141,10 @@ def item_avaliable(string, column):
                 # continue
             # else:
                 # the password already made matches the given string. Not a valid password
-                # break
+                # return False
+        # else:
+            # This will run if loop did not break. If it did not break, password was unique
+            # return True
     # else:
         # What in God's name did you do to my code?!?!?!?!? Column should only be 1 or 2
     pass
@@ -154,4 +181,17 @@ def admin():
         print("Invalid password. Returning to Sign In Menu . . .")
         # Go to that function? or it's in a while loop and thus return
     # IN THEORY the username and password are valid and now need to do the special admin capabilities
-    
+    while True:
+        print("What would you like to do:\n1) Add a User\n2) Remove a User\n3) Go Back to Sign In Menu")
+        action = input("Enter the number corresponding to what you want to do:\n")
+        if action == "1":
+            # Call sign up function because LAZY
+            pass
+        elif action == "2":
+            # Oh boy.... I dont want to do this. See LD's personal library
+            pass
+        elif action == "3":
+            print("Returning to Sign In Menu . . .")
+        else:
+            print("Invalid input. Please try again")
+            continue
