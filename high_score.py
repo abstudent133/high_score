@@ -34,40 +34,68 @@
                 #write it in the csv
 #Pseudocode
 #import csv
+import csv
 
 #access csv
+def access_csv(game_name):
 # parameters: game_name
-# determine which game file should be opened
-# if game_name is "tic_tac_toe"
-    # set file_name to tic_tac_toe_high_scores.csv
-# else if game_name is "number_guess"
-    # set file_name to number_guess_high_scores.csv
-# open the selected csv file
-# create empty dictionary called score_dictionary
-# for each row in the csv file
-    # first value should be the user id (key)
-    # remaining values should be the list of top ten scores
-    # convert score values from string to integer
-    # store in dictionary as:
-        # key = user id
-        # value = list of scores
-# close the file
-# return score_dictionary
+    # determine which game file should be opened
+    # if game_name is "tic_tac_toe"
+    if game_name == "tic tac toe":
+        # set file_name to tic_tac_toe_high_scores.csv
+        file_name = "docs/tic_tac_toe.csv"
+    # else if game_name is "number_guess"
+    elif game_name == "number guess":
+        # set file_name to number_guess_high_scores.csv
+        file_name = "docs/number_guess.csv"
+    # open the selected csv file
+    with open(file_name, mode="r+") as csv_file:
+        content = csv.reader(csv_file)
+        # create empty dictionary called score_dictionary
+        score_dictionary = {}
+        # for each row in the csv file
+        for line in content:
+            # first value should be the user id (key)
+            # remaining values should be the list of top 5 scores
+            # convert score values from string to integer
+            for num in range(1,11):
+                line[num] = int(line[num])
+            score_dictionary.update(line[0]: [line[1],line[2],line[3],line[4],line[5]])
+        # close the file
+        # return score_dictionary
+        return score_dictionary
 
 #update high scores function
+def update(new_score, score_dictionary, username, score_type):
 # parameters: new_score, score_dictionary, username, score_type
-# if score_type is "personal"
-    # search dictionary for username as key
-# else if score_type is "overall"
-    # search dictionary for key "overall"
-# get the score list for that key
-# check if new_score is greater than the lowest score in the list
+    # if score_type is "personal"
+    if score_type == "personal":
+        # search dictionary for username as key
+        scores = score_dictionary[username]
+    # else if score_type is "overall"
+    elif score_type == "overall":
+        # search dictionary for key "overall"
+    # get the score list for that key
+        scores = score_dictionary["overall"]
+    # check if new_score is greater than the lowest score in the list
     # if it is greater
-        # add new_score to the list
-        # sort the list from highest to lowest
-        # remove the lowest score so only top ten remain
-# update dictionary with modified score list
-# return updated dictionary
+            # add new_score to the list
+            # sort the list from highest to lowest
+            # remove the lowest score so only top ten remain
+    # update dictionary with modified score list
+    for score in scores:
+        if new_score >= score:
+            if new_score == score[0]:
+                continue
+            else:
+                scores.append(new_score)
+                scores = scores.sort()
+                score.remove(scores[0])
+                score_dictionary[username] = scores
+        else:
+            continue
+    # return updated dictionary
+    return score_dictionary
 
 # update csv function
 # parameters: updated_dictionary, game_name
