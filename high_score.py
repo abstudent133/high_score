@@ -98,21 +98,34 @@ def update(new_score, score_dictionary, username, score_type):
     return score_dictionary
 
 # update csv function
+def update_csv(dictionary, game_name):
 # parameters: updated_dictionary, game_name
-# determine which csv file to open based on game_name
-# open the file in write mode (this will overwrite old data)
-# for each key and score list in updated_dictionary
-    # write a row to the csv
-        # first value = user id
-        # remaining values = top ten scores
-# close the file
+    # determine which csv file to open based on game_name
+    # open the file in write mode (this will overwrite old data)
+    with open(game_name, "w") as file:
+    # for each key and score list in updated_dictionary
+        for key in dictionary.keys():
+        # write a row to the csv
+            pass
+            # first value = user id
+            # remaining values = top ten scores
+    # close the file
 
 # formate individual function
+def formate_individual(score_list, username)
 # parameters: score_list, username
-# display header that includes the username
-# sort score_list from highest to lowest
-# loop through scores
-    # display rank number and score
+    # display header that includes the username
+    print(f"Username: {username}")
+    # sort score_list from highest to lowest
+    num = 0
+    score_list = score_list.sort()
+    print("Scores:")
+    # loop through scores
+    for score in score_list:
+        # display rank number and score
+        print(f"{num}. {score}")
+        num += 1
+        
    
 #formate overall funtion
 #parameters: dictionary
