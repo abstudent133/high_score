@@ -152,3 +152,26 @@ def formate_overall(dictionary):
         username, score = all_scores[i]
 # display username associated with each score
         print(f"{i+1}. {username} -> {score}")
+
+#main
+def main(game,new_score,username):
+    print("This is the high score tracker.")
+    if game == "tic tac toe":
+        score_dictionary = access_csv("tic tac toe")
+        score_dictionary = update(new_score,score_dictionary,username,"personal")
+        score_dictionary = update(new_score,score_dictionary,username,"overall")
+        update_csv(score_dictionary,"tic tac toe")
+        formate_individual(score_dictionary.get(username),username)
+        formate_overall(score_dictionary)
+    else:
+        score_dictionary = access_csv("number guess")
+        score_dictionary = update(new_score,score_dictionary,username,"personal")
+        score_dictionary = update(new_score,score_dictionary,username,"overall")
+        update_csv(score_dictionary,"number guess")
+        formate_individual(score_dictionary.get(username),username)
+        formate_overall(score_dictionary)
+        
+
+
+
+
