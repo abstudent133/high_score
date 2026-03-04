@@ -74,5 +74,5 @@ def sign_in():
         else:
             continue
 # Test code later once I have the CSV file
-
+main()
 # - All long information stored in separate file
