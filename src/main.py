@@ -1,4 +1,8 @@
 #This is the main for the user interface
+from guessing_gme import *
+from high_score import *
+from tic_tac_toe import *
+from user_authentification import *
 
 # SIGN IN MENU
 # get user to sign in / sign up / log in as admin / leave program entirly
@@ -8,7 +12,33 @@
 # If choice is no (not sign in)
 # End the code
 # Else take them back to sign in
-from guessing_gme import guessing_game
+# Otions for sign in menu
+def display_menu():
+    print("1. Sign in")
+    print("2. Sing up")
+    print("3. Admin sign in")
+    print("4. Exit") 
+
+# Main menu
+def main():
+    while True:
+        display_menu()
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            sign_in()
+        elif choice == "2":
+            sign_up()   # Change name once the functioon is made
+        elif choice == "3":
+            # admin() # Change name once the function is made
+            print("Admin functionality unavaiable as of this moment. Pick something else")
+            continue
+        elif choice == "4":
+            print("Thank you for using High Score! Goodbye!")
+            exit()
+        else:
+            print("Please enter a valid choice (1, 2, 3, or 4)")
+            main() # Return to main menu
+
 # \/ By IC
 # MENU FOR SIGNED IN
 print("tick tack toe = 1, guessing game = 2, view high score = 3 log out = 4")
