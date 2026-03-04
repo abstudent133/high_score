@@ -18,6 +18,9 @@ def guessing_game():
         print("Im thinking about a number from 1 - 200")
     #   asking the user guess a number bewtween 1 - 500 
         guess_input = input("guess a number between 1-200:")
+        if int(guess_input) == False:
+            print("Enter a number please")
+            continue
     #   save this as a variable under the name guess 
         guess = int(guess_input)
         if guess == random_number:
