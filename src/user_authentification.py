@@ -1,5 +1,7 @@
 # LV 1st User Authentification
 import csv
+import hashlib
+import random
 
 # Requirements 
 
@@ -27,7 +29,7 @@ def sign_in():
         csv_reader = csv.reader(csv_file)
         match = False
         for row in csv_reader:
-            if row[0] == username and row[1] == password:
+            if row[0] == username and row[1] == password: # Note from LD: You can't just have password be compared, it needs to be hashed first (I built a helper function for this, feel free to use it. Just pass in the string you need hashed)
                 match = True
                 break
         csv_file.close()
@@ -63,6 +65,38 @@ def sign_in():
 # See password requirements
 # See helper function
 # Once user has given both a valid username and password, put the given information into the csv (using hashlib for the password) and move onto selecting a game to play
+def sing_up():
+    while True:
+        the_username = input("Enter the username you would like:\n").strip()
+        user_avaliable = item_avaliable(0, the_username)
+        if user_avaliable == True:
+            # Valid username, go to password
+            break
+        else:
+            print("It seems that username is already taken. Please input a different username")
+            continue
+    while True:
+        the_password = input("Enter the password you would like\nPassword must be 12 characters long, have a number, have an uppercase, have a lowercase, and have a special character:\n").strip()
+        pass_valid = pass_requirements(the_password)
+        if pass_valid == True:
+            # password meets requirements. Now check if password avaliable
+            pass
+        else:
+            print("Your password doesn't have the nessisary requirements. Please enter a different password")
+            continue
+        pass_avaliable = item_avaliable(1, the_password)
+        if pass_avaliable == True:
+            # password avaliable and meets requirements. add info to csv
+            break
+        else:
+            print("It seems that the password you typed has already been taken. Please enter a different password")
+            continue
+    # Enter aquired information to csv
+    hashed_pass, the_key = hash_item(the_password)
+    with open("src\LD_test.csv", "a", newline="") as csv_file:
+        fieldnames = ['username', 'password', 'key']
+        writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
+        writer.writerow({'username': the_username, 'password': hashed_pass, 'key': the_key})
 
 # PASSWORD REQUIREMENTS
 # length is >= 12
@@ -120,7 +154,40 @@ def item_avaliable(string, column):
                 # break
     # else:
         # What in God's name did you do to my code?!?!?!?!? Column should only be 1 or 2
-    pass
+    csv_file = open("src\LD_test.csv", 'r')
+    csv_reader = csv.DictReader(csv_file)
+    if column == 0:
+        for line in csv_reader:
+            if string != line[0]:
+                continue
+            else:
+                break
+        else:
+            # this should only happen if for loop did not break
+            return False # found a match meaning item is not unique
+    elif column == 1:
+        for line in csv_reader:
+            # First hash the string (password) with the key in the line
+            byte_item = string.encode(line[2])
+            hash_object = hashlib.sha256(byte_item)
+            final_hashed = hash_object.hexdigest()
+            if final_hashed != line[1]:
+                continue
+            else:
+                break
+        else:
+            # this should only happen if for loop did not break
+            return False # found a match meaning item is not unique
+    else:
+        print("What the hell?")   
+
+def hash_item(hash_item):
+    keys_to_use = ['sha1()', 'sha224()', 'sha256()', 'sha384()', 'sha512()', 'sha3_224()', 'sha3_256()', 'sha3_384()', 'sha3_512()', 'shake_128()', 'shake_256()', 'blake2b()', 'blake2s()']
+    random_hasher = random.choice(keys_to_use)
+    byte_item = hash_item.encode(random_hasher)
+    hash_object = hashlib.sha256(byte_item)
+    final_hashed = hash_object.hexdigest()
+    return final_hashed, random_hasher
 
 # ADMIN FUNCTIONALITY
 # Information is already established when csv is created
@@ -145,6 +212,7 @@ def admin():
     else:
         print("Invalid username. Returning to Sign In Menu . . .")
         # Go to that function? or it's in a while loop and thus return
+        exit()
     password = input("Enter the Admin Password:\n").strip()
     valid_pass = item_avaliable(password, 1)
     if valid_pass != True:
@@ -153,5 +221,6 @@ def admin():
     else:
         print("Invalid password. Returning to Sign In Menu . . .")
         # Go to that function? or it's in a while loop and thus return
+        exit()
     # IN THEORY the username and password are valid and now need to do the special admin capabilities
     
