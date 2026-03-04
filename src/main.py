@@ -27,7 +27,7 @@ def main():
         if choice == "1":
             sign_in()
         elif choice == "2":
-            sign_up()   # Change name once the functioon is made
+            sign_up()
         elif choice == "3":
             # admin() # Change name once the function is made
             print("Admin functionality unavaiable as of this moment. Pick something else")
