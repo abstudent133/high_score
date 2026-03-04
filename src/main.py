@@ -41,23 +41,34 @@ def main():
 
 # \/ By IC
 # MENU FOR SIGNED IN
-print("tick tack toe = 1, guessing game = 2, view high score = 3 log out = 4")
-# tick tack toe option is 1 
-# guessing game is 2
-# view high score is 3 
-# log out is 4 
-#  if user choice is 1
-user_choice = input("please choose one of those numbers: ")
-if user_choice == "1":
-#      then play the function for number guessing game
-        guessing_game()
-#   # else if user choice is 2
-#       then play the tick tac toe function 
-#   # else if user choice is 3 
-        #play the high score function 
-      #  if user choice is 4
-        #then have them log out and sent to main menu for sign in and such 
-#   else:
-        #show the user incorrect input try again
-        #send the user back up 
+def signed_in_menu():
+        while True:
+                print("tick tack toe = 1, guessing game = 2, view high score = 3 log out = 4")
+                # tick tack toe option is 1 
+                # guessing game is 2
+                # view high score is 3 
+                # log out is 4 
+                #  if user choice is 1
+                user_choice = input("please choose one of those numbers: ")
+                if user_choice == "1":
+                #      then play the function for number guessing game
+                        guessing_game()
+                #   # else if user choice is 2
+                elif user_choice == "2":
+                #       then play the tick tac toe function 
+                        guessing_game()
+                #   # else if user choice is 3 
+                elif user_choice == "3":
+                        #play the high score function
+                        pass 
+                #  if user choice is 4
+                elif user_choice == "4":
+                        #then have them log out and sent to main menu for sign in and such 
+                        main()
+                #   else:
+                else:
+                        #show the user incorrect input try again
+                        #send the user back up 
+                        print("Invalid choice. Try again")
+                        continue
         
