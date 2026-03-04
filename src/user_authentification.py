@@ -68,7 +68,7 @@ def sign_in():
 def sing_up():
     while True:
         the_username = input("Enter the username you would like:\n").strip()
-        user_avaliable = item_avaliable(0, the_username)
+        user_avaliable = item_avaliable(the_username, 0)
         if user_avaliable == True:
             # Valid username, go to password
             break
@@ -84,7 +84,7 @@ def sing_up():
         else:
             print("Your password doesn't have the nessisary requirements. Please enter a different password")
             continue
-        pass_avaliable = item_avaliable(1, the_password)
+        pass_avaliable = item_avaliable(the_password, 1)
         if pass_avaliable == True:
             # password avaliable and meets requirements. add info to csv
             break
