@@ -25,30 +25,36 @@ def guessing_game():
             print(f"your score is {score}")
     #       # if (guess >= random_num - 10 and guess < random_num) or (guess <= random_num + 10 and guess > random_num)
                 #add seven to the score 
+            print(f"the random number was {random_number}")
         elif (guess >= random_number - 10 and guess < random_number) or (guess <= random_number + 10 and guess > random_number):
                 #add seven to the score 
                 score += 7 
                 print(f"your score is {score}")
+                print(f"the random number was {random_number}")
             # if (guess >= random_num - 20 and guess < random_num) or (guess <= random_num + 20 and guess > random_num)
         elif (guess >= random_number - 20 and guess < random_number) or (guess <= random_number + 20 and guess > random_number):
             #add five to score
             score += 5 
             print(f"your score is {score}")
+            print(f"the random number was {random_number}")
             # if (guess >= random_number - 30 and guess < random_number) or (guess <= random_number + 30 and guess > random_number)
         elif (guess >= random_number - 30 and guess < random_number) or (guess <= random_number + 30 and guess > random_number):
     #         # add three to score
             score += 3
             print(f"your score is {score}")
+            print(f"the random number was {random_number}")
             # if (guess >= random_num - 40 and guess < random_num) or (guess <= random_num + 40 and guess > random_num)
         elif (guess >= random_number - 40 and guess < random_number) or (guess <= random_number + 40 and guess > random_number):
                 # add two to score
             score += 2
             # if (guess >= random_num - 50 and guess < random_num) or (guess <= random_num + 50 and guess > random_num)
             print(f"your score is {score}")
+            print(f"the random number was {random_number}")
         elif (guess >= random_number - 50 and guess < random_number) or (guess <= random_number + 50 and guess > random_number):
                 # add one to score
             score += 1
             print(f"your score is {score}")
+            print(f"the random number was {random_number}")
             #else:
         else:
                 #show the user you got no points
