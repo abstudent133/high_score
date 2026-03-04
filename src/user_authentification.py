@@ -3,9 +3,6 @@ import csv
 import hashlib
 import random
 
-# LV 1st User Authentification
-import csv
-
 # Requirements 
 
 # - Find out if new or old user
