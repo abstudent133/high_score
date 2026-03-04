@@ -99,7 +99,7 @@ def sign_up():
             continue
     # Enter aquired information to csv
     hashed_pass, the_key = hash_item(the_password)
-    with open("src\LD_test.csv", "a", newline="") as csv_file:
+    with open("src/LD_test.csv", "a", newline="") as csv_file:
         fieldnames = ['username', 'password', 'key']
         writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
         writer.writerow({'username': the_username, 'password': hashed_pass, 'key': the_key})
@@ -166,11 +166,11 @@ def item_avaliable(string, column):
             # return True
     # else:
         # What in God's name did you do to my code?!?!?!?!? Column should only be 1 or 2
-    csv_file = open("src\LD_test.csv", 'r')
+    csv_file = open("docs/user_login.csv", 'r')
     csv_reader = csv.DictReader(csv_file)
     if column == 0:
         for line in csv_reader:
-            if string != line[0]:
+            if string != line['username']:
                 continue
             else:
                 break
@@ -180,10 +180,11 @@ def item_avaliable(string, column):
     elif column == 1:
         for line in csv_reader:
             # First hash the string (password) with the key in the line
-            byte_item = string.encode(line[2])
-            hash_object = hashlib.sha256(byte_item)
-            final_hashed = hash_object.hexdigest()
-            if final_hashed != line[1]:
+            encoded_string = string.encode('utf-8')
+            hasher = hashlib.sha256()
+            hasher.update(encoded_string)
+            final_hash = hasher.hexdigest()
+            if final_hash != line['password']:
                 continue
             else:
                 break
@@ -194,12 +195,16 @@ def item_avaliable(string, column):
         print("What the hell?")   
 
 def hash_item(hash_item):
-    keys_to_use = ['sha1()', 'sha224()', 'sha256()', 'sha384()', 'sha512()', 'sha3_224()', 'sha3_256()', 'sha3_384()', 'sha3_512()', 'shake_128()', 'shake_256()', 'blake2b()', 'blake2s()']
-    random_hasher = random.choice(keys_to_use)
-    byte_item = hash_item.encode(random_hasher)
-    hash_object = hashlib.sha256(byte_item)
-    final_hashed = hash_object.hexdigest()
-    return final_hashed, random_hasher
+    encoded_string = hash_item.encode('utf-8')
+    hash_object = hashlib.sha256()
+    hash_object.update(encoded_string)
+    hex_hash = hash_object.hexdigest()
+
+    #random_hasher = random.choice(keys_to_use)
+    #byte_item = hash_item.encode(random_hasher)
+    #hash_object = hashlib.sha256(byte_item)
+    #final_hashed = hash_object.hexdigest()
+    return hex_hash, 'sha256()'
 
 # ADMIN FUNCTIONALITY
 # Information is already established when csv is created
@@ -249,3 +254,5 @@ def admin():
         else:
             print("Invalid input. Please try again")
             continue
+
+admin()
