@@ -32,7 +32,10 @@ def sign_in():
         csv_reader = csv.reader(csv_file)
         match = False
         for row in csv_reader:
-            if row[0] == username and row[1] == password:
+            byte_item = password.encode(row[2])
+            hash_object = hashlib.sha256(byte_item)
+            final_hashed = hash_object.hexdigest()
+            if row[0] == username and row[1] == final_hashed:
                 match = True
                 break
         csv_file.close()
