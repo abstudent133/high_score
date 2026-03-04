@@ -7,7 +7,7 @@ def guessing_game():
     # show the user hello you have entered the numbers guessing game 
     print("hello you have entered the numbers guessing game")
     # the point of this game is to guess a number between 1 - 500
-    print("the point of this game is to guess a number between 1- 500")
+    print("the point of this game is to guess a number between 1- 200")
     # quit is equal to false 
     quit = False
     # while quit is equal to false let the game contiune 
@@ -15,7 +15,7 @@ def guessing_game():
     #   get a random number in the range of 1 - 500
         random_number = random.randint(1,201)
     #   show the user im thinking abt a number from 1 - 500 how abt you guess
-        print("Im thinking about a number from 1 - 200:")
+        print("Im thinking about a number from 1 - 200")
     #   asking the user guess a number bewtween 1 - 500 
         guess_input = input("guess a number between 1-200:")
     #   save this as a variable under the name guess 
