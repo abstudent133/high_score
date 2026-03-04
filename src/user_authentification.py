@@ -11,30 +11,7 @@ import random
 # Ask user to enter password
 # Store info as password
 
-# Otions for sign in menu
-def display_menu():
-    print("1. Sign in")
-    print("2. Sing up")
-    print("3. Admin sign in")
-    print("4. Exit") 
 
-# Main menu
-def main():
-    while True:
-        display_menu()
-        choice = input("Enter your choice: ")
-        if choice == "1":
-            sign_in()
-        elif choice == "2":
-            sign_up()   # Change name once the functioon is made
-        elif choice == "3":
-            admin_sign_in() # Change name once the function is made
-        elif choice == "4":
-            print("Thank you for using High Score! Goodbye!")
-            exit()
-        else:
-            print("Please enter a valid choice (1, 2, 3, or 4)")
-            main() # Return to main menu
             
 # - Verify user logged in
 # If username and password match
@@ -55,7 +32,10 @@ def sign_in():
         csv_reader = csv.reader(csv_file)
         match = False
         for row in csv_reader:
-            if row[0] == username and row[1] == password:
+            byte_item = password.encode(row[2])
+            hash_object = hashlib.sha256(byte_item)
+            final_hashed = hash_object.hexdigest()
+            if row[0] == username and row[1] == final_hashed:
                 match = True
                 break
         csv_file.close()
@@ -75,7 +55,6 @@ def sign_in():
         else:
             continue
 # Test code later once I have the CSV file
-main()
 # - All long information stored in separate file
 
 
@@ -92,10 +71,10 @@ main()
 # See password requirements
 # See helper function
 # Once user has given both a valid username and password, put the given information into the csv (using hashlib for the password) and move onto selecting a game to play
-def sing_up():
+def sign_up():
     while True:
         the_username = input("Enter the username you would like:\n").strip()
-        user_avaliable = item_avaliable(0, the_username)
+        user_avaliable = item_avaliable(the_username, 0)
         if user_avaliable == True:
             # Valid username, go to password
             break
@@ -111,7 +90,7 @@ def sing_up():
         else:
             print("Your password doesn't have the nessisary requirements. Please enter a different password")
             continue
-        pass_avaliable = item_avaliable(1, the_password)
+        pass_avaliable = item_avaliable(the_password, 1)
         if pass_avaliable == True:
             # password avaliable and meets requirements. add info to csv
             break
@@ -170,7 +149,10 @@ def item_avaliable(string, column):
                 # continue
             # else:
                 # the username already made matches the given string. Not a valid username
-                # break
+                # return False
+        # else:
+            # This will run if loop did not break. If it did not break, username was unique
+            # return True
     # elif column == 1:
         # for line in content:
             # the_key = line[2]
@@ -178,7 +160,10 @@ def item_avaliable(string, column):
                 # continue
             # else:
                 # the password already made matches the given string. Not a valid password
-                # break
+                # return False
+        # else:
+            # This will run if loop did not break. If it did not break, password was unique
+            # return True
     # else:
         # What in God's name did you do to my code?!?!?!?!? Column should only be 1 or 2
     csv_file = open("src\LD_test.csv", 'r')
@@ -250,4 +235,17 @@ def admin():
         # Go to that function? or it's in a while loop and thus return
         exit()
     # IN THEORY the username and password are valid and now need to do the special admin capabilities
-    
+    while True:
+        print("What would you like to do:\n1) Add a User\n2) Remove a User\n3) Go Back to Sign In Menu")
+        action = input("Enter the number corresponding to what you want to do:\n")
+        if action == "1":
+            # Call sign up function because LAZY
+            pass
+        elif action == "2":
+            # Oh boy.... I dont want to do this. See LD's personal library
+            pass
+        elif action == "3":
+            print("Returning to Sign In Menu . . .")
+        else:
+            print("Invalid input. Please try again")
+            continue
