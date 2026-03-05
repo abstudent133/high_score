@@ -118,5 +118,5 @@ def play_tic_tac_toe():
     #return final score
     return player_score
 
-play_tic_tac_toe()
+#play_tic_tac_toe()
 

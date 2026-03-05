@@ -27,15 +27,16 @@ def sign_in():
         username = input("Enter your username: ")
         password = input("Enter your password: ")
         # Open csv and check if username and password match
-        csv_file = open("user_info.csv", "r") # going to change the name of the csv file once we have it   # Note from LD: You can't just have password be compared, it needs to be hashed first (I built a helper function for this, feel free to use it. Just pass in the string you need hashed)
+        csv_file = open("docs/user_login.csv", "r") # going to change the name of the csv file once we have it   # Note from LD: You can't just have password be compared, it needs to be hashed first (I built a helper function for this, feel free to use it. Just pass in the string you need hashed)
         match = True
-        csv_reader = csv.reader(csv_file)
+        csv_reader = csv.DictReader(csv_file)
         match = False
         for row in csv_reader:
-            byte_item = password.encode(row[2])
-            hash_object = hashlib.sha256(byte_item)
-            final_hashed = hash_object.hexdigest()
-            if row[0] == username and row[1] == final_hashed:
+            encoded_string = password.encode('utf-8')
+            hasher = hashlib.sha256()
+            hasher.update(encoded_string)
+            final_hash = hasher.hexdigest()
+            if row['username'] == username and row['password'] == final_hash:
                 match = True
                 break
         csv_file.close()
@@ -99,7 +100,7 @@ def sign_up():
             continue
     # Enter aquired information to csv
     hashed_pass, the_key = hash_item(the_password)
-    with open("sdocs/user_login.csv", "a", newline="") as csv_file:
+    with open("docs/user_login.csv", "a", newline="") as csv_file:
         fieldnames = ['username', 'password', 'key']
         writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
         writer.writerow({'username': the_username, 'password': hashed_pass, 'key': the_key})
@@ -230,5 +231,3 @@ def admin():
         else:
             print("Invalid input. Please try again")
             continue
-
-sign_up()
