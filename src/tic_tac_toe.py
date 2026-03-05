@@ -115,9 +115,7 @@ def play_tic_tac_toe():
                     break
                 else:
                     print("Sorry that was an incorrect input. Choose again. You must input yes or no.")
-        username = input("Please input your username here: ") 
-        new_score = play_tic_tac_toe()
-        main_high("number guess",new_score, username)
+        
         
         # after round ends
         # add 1 to round_counter by 1
@@ -125,7 +123,9 @@ def play_tic_tac_toe():
     # after 10 rounds are complete
     # display final score message
         # "You won X out of 10 rounds."
-        print(f"Your score is {player_score}.")
+        username = input("Please input your username here: ")
+        print(f"Your score is {player_score}.") 
+        main_high("number guess",player_score, username)
     #return final score
     return player_score
 

@@ -79,8 +79,7 @@ def guessing_game():
             print("goodbye")
             quit = True
             username = input("Please input your username here: ")
-            new_score = guessing_game()
-            main_high("number guess",new_score, username)
+            main_high("number guess",score, username)
             break
         else:
             print("incorrect input")
