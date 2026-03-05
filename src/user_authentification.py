@@ -100,10 +100,22 @@ def sign_up():
             continue
     # Enter aquired information to csv
     hashed_pass, the_key = hash_item(the_password)
+    # Add info to user login csv
     with open("docs/user_login.csv", "a", newline="") as csv_file:
         fieldnames = ['username', 'password', 'key']
         writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
         writer.writerow({'username': the_username, 'password': hashed_pass, 'key': the_key})
+
+    # Add info to score tracking csvs
+    with open("docs/num_guessing.csv", "a", newline="") as csv_file:
+        fieldnames = ['username','score_1','score_2','score_3','score_4','score_5','score_6','score_7','score_8','score_9','score_10']
+        writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
+        writer.writerow({'username': the_username,'score_1': 0,'score_2': 0,'score_3': 0,'score_4': 0,'score_5': 0,'score_6': 0,'score_7': 0,'score_8': 0,'score_9': 0,'score_10': 0})
+
+    with open("docs/tic_tac_toe.csv", "a", newline="") as csv_file:
+        fieldnames = ['username','score_1','score_2','score_3','score_4','score_5','score_6','score_7','score_8','score_9','score_10']
+        writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
+        writer.writerow({'username': the_username,'score_1': 0,'score_2': 0,'score_3': 0,'score_4': 0,'score_5': 0,'score_6': 0,'score_7': 0,'score_8': 0,'score_9': 0,'score_10': 0})
 
 # PASSWORD REQUIREMENTS
 # length is >= 12
@@ -176,11 +188,6 @@ def hash_item(hash_item):
     hash_object = hashlib.sha256()
     hash_object.update(encoded_string)
     hex_hash = hash_object.hexdigest()
-
-    #random_hasher = random.choice(keys_to_use)
-    #byte_item = hash_item.encode(random_hasher)
-    #hash_object = hashlib.sha256(byte_item)
-    #final_hashed = hash_object.hexdigest()
     return hex_hash, 'sha256()'
 
 # ADMIN FUNCTIONALITY
