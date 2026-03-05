@@ -155,7 +155,7 @@ def formate_overall(dictionary):
         print(f"{i+1}. {username} -> {score}")
 
 #main
-def main(game,new_score,username):
+def main_high(game,new_score,username):
     print("This is the high score tracker.")
     if game == "tic tac toe":
         score_dictionary = access_csv("tic tac toe")

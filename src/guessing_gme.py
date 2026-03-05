@@ -78,6 +78,9 @@ def guessing_game():
         elif again == "no":
             print("goodbye")
             quit = True
+            username = input("Please input your username here: ")
+            new_score = guessing_game()
+            main_high("number guess",new_score, username)
             break
         else:
             print("incorrect input")
@@ -87,6 +90,4 @@ def guessing_game():
     # at end, send back to signed in menu   
     quit == True
 #guessing_game()
-username = input("Please input your username here: ")
-new_score = guessing_game()
-main("number guess",new_score, username)
+
