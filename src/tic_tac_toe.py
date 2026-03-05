@@ -8,6 +8,7 @@ def play_tic_tac_toe():
     # set player_score to 0
     player_score = 0
     play = True
+    round_counter = 1
         # display message showing current round number
     while play == True:
         print(f"You are on round {round_counter}.")
