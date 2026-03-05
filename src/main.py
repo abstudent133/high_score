@@ -58,7 +58,7 @@ def signed_in_menu():
                 #   # else if user choice is 2
         elif user_choice == "2":
                 #       then play the tick tac toe function 
-            guessing_game()
+            play_tic_tac_toe()
                 #   # else if user choice is 3 
         elif user_choice == "3":
                         #play the high score function
@@ -68,6 +68,7 @@ def signed_in_menu():
             print("These are you high scores for tic tac toe:")
             formate_individual(tic_dictionary.get(username),username)
             print("These are you number guessing game high scores:")
+            formate_individual(num_dictionary.get(username), username)
                 #  if user choice is 4
         elif user_choice == "4":
                         #then have them log out and sent to main menu for sign in and such 

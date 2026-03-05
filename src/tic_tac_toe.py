@@ -1,7 +1,7 @@
 # \/ By AB
 #This is the tic tac toe game section
 import random
-
+from high_score import*
 # function: play_tic_tac_toe
 def play_tic_tac_toe():
     # set player_score to 0
@@ -13,7 +13,6 @@ def play_tic_tac_toe():
         # display message showing current round number
         print(f"You are on round {round_counter}/10.")
         # create empty tic tac toe board
-        board_num = [[1,2,3],[4,5,6],[7,8,9]]
         board = [[" "," "," "],[" "," "," "],[" "," "," "]]
             # board should be 3x3 grid
             # each space starts empty
@@ -119,4 +118,7 @@ def play_tic_tac_toe():
     return player_score
 
 #play_tic_tac_toe()
+username = input("Please input your username here: ")
+new_score = play_tic_tac_toe()
+main("number guess",new_score, username)
 

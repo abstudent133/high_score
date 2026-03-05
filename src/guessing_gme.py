@@ -1,6 +1,7 @@
 #IC 1st guessing number game 
 #import random 
 import random
+from high_score import*
 #definging score
 def guessing_game():
     score = 0
@@ -61,7 +62,7 @@ def guessing_game():
             #else:
         else:
                 #show the user you got no points
-                print(f"your score is {score}")
+            print(f"your score is {score}")
             print("you got no points")
         # ask user if they want to play again (yes/no)
         again = input("do you want to play again yes or no:").strip().lower()
@@ -84,3 +85,6 @@ def guessing_game():
     # at end, send back to signed in menu   
     quit == True
 #guessing_game()
+username = input("Please input your username here: ")
+new_score = guessing_game()
+main("number guess",new_score, username)
