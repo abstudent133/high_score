@@ -82,7 +82,7 @@ def sign_up():
             print("It seems that username is already taken. Please input a different username")
             continue
     while True:
-        the_password = input("Enter the password you would like\nPassword must be 12 characters long, have a number, have an uppercase, have a lowercase, and have a special character:\n").strip()
+        the_password = input("Enter the password you would like\nPassword must be 12 characters long (maximum is 40), have a number, have an uppercase, have a lowercase, and have a special character:\n").strip()
         pass_valid = pass_requirements(the_password)
         if pass_valid == True:
             # password meets requirements. Now check if password avaliable
@@ -99,7 +99,7 @@ def sign_up():
             continue
     # Enter aquired information to csv
     hashed_pass, the_key = hash_item(the_password)
-    with open("src/LD_test.csv", "a", newline="") as csv_file:
+    with open("sdocs/user_login.csv", "a", newline="") as csv_file:
         fieldnames = ['username', 'password', 'key']
         writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
         writer.writerow({'username': the_username, 'password': hashed_pass, 'key': the_key})
@@ -117,7 +117,7 @@ def pass_requirements(password):
     lowercase = any(char.islower() for char in password)
     digit = any(char.isdigit() for char in password)
     # Getting requirements
-    if len(password) >= 12:
+    if len(password) >= 1 and len(password) <= 40:
         score += 1
     if uppercase == True:
         score += 1
@@ -143,40 +143,16 @@ def item_avaliable(string, column):
     # First, if column == 0, this is USERNAME
     # If column == 1, this is PASSWORD and I need to access the key to hash the given string BEFORE comparing
     # Open file first
-    # If column == 0:
-        # for line in content:
-            # if string != line[0]
-                # continue
-            # else:
-                # the username already made matches the given string. Not a valid username
-                # return False
-        # else:
-            # This will run if loop did not break. If it did not break, username was unique
-            # return True
-    # elif column == 1:
-        # for line in content:
-            # the_key = line[2]
-            # if string(that has been hashed by the_key) != line[1]
-                # continue
-            # else:
-                # the password already made matches the given string. Not a valid password
-                # return False
-        # else:
-            # This will run if loop did not break. If it did not break, password was unique
-            # return True
-    # else:
-        # What in God's name did you do to my code?!?!?!?!? Column should only be 1 or 2
-    csv_file = open("docs/user_login.csv", 'r')
+    avaliable = True
+    csv_file = open("docs/user_login.csv", 'r', newline='')
     csv_reader = csv.DictReader(csv_file)
     if column == 0:
         for line in csv_reader:
-            if string != line['username']:
-                continue
-            else:
+            if string == line['username']:
+                avaliable = False # found a match meaning item is not unique
                 break
-        else:
-            # this should only happen if for loop did not break
-            return False # found a match meaning item is not unique
+            else:
+                continue
     elif column == 1:
         for line in csv_reader:
             # First hash the string (password) with the key in the line
@@ -184,15 +160,15 @@ def item_avaliable(string, column):
             hasher = hashlib.sha256()
             hasher.update(encoded_string)
             final_hash = hasher.hexdigest()
-            if final_hash != line['password']:
-                continue
-            else:
+            if final_hash == line['password']:
+                # Found a match. Invalid
+                avaliable = False
                 break
-        else:
-            # this should only happen if for loop did not break
-            return False # found a match meaning item is not unique
+            else:
+                continue
     else:
-        print("What the hell?")   
+        print("What the hell?")  
+    return avaliable 
 
 def hash_item(hash_item):
     encoded_string = hash_item.encode('utf-8')
@@ -223,7 +199,7 @@ def hash_item(hash_item):
 def admin():
     username = input("Enter the Admin Username:\n").strip()
     valid_usrnm = item_avaliable(username, 0)
-    if valid_usrnm != True:
+    if valid_usrnm == False:
         # Username MATCHES, this what I want. Now do password
         pass
     else:
@@ -232,7 +208,7 @@ def admin():
         exit()
     password = input("Enter the Admin Password:\n").strip()
     valid_pass = item_avaliable(password, 1)
-    if valid_pass != True:
+    if valid_pass == False:
         # Password MATCHES, that what I want.
         pass
     else:
@@ -255,4 +231,4 @@ def admin():
             print("Invalid input. Please try again")
             continue
 
-admin()
+sign_up()
