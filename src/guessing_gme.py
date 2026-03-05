@@ -6,9 +6,9 @@ from high_score import*
 def guessing_game():
     score = 0
     # show the user hello you have entered the numbers guessing game 
-    print("hello you have entered the numbers guessing game")
+    print("Hello you have entered the numbers guessing game!")
     # the point of this game is to guess a number between 1 - 500
-    print("the point of this game is to guess a number between 1- 200")
+    print("The point of this game is to guess a number between 1- 200")
     # quit is equal to false 
     quit = False
     # while quit is equal to false let the game contiune 
@@ -18,7 +18,9 @@ def guessing_game():
     #   show the user im thinking abt a number from 1 - 500 how abt you guess
         print("Im thinking about a number from 1 - 200")
     #   asking the user guess a number bewtween 1 - 500 
-        guess_input = input("guess a number between 1-200:")
+        guess_input = input("Guess a number between 1-200:").strip()
+        if int(guess_input) == False:
+            guess_input = input("guess a number between 1-200:")
         if guess_input.isdigit() == False:
             print("Enter a number please")
             continue
@@ -29,46 +31,48 @@ def guessing_game():
             continue
         if guess == random_number:
             score += 10
-            print(f"your score is {score}")
+            print(f"Your score is {score}!")
     #       # if (guess >= random_num - 10 and guess < random_num) or (guess <= random_num + 10 and guess > random_num)
                 #add seven to the score 
-            print(f"the random number was {random_number}")
+            print(f"The random number was {random_number}")
         elif (guess >= random_number - 10 and guess < random_number) or (guess <= random_number + 10 and guess > random_number):
                 #add seven to the score 
                 score += 7 
-                print(f"your score is {score}")
-                print(f"the random number was {random_number}")
+                print(f"Your score is {score}")
+                print(f"The random number was {random_number}")
             # if (guess >= random_num - 20 and guess < random_num) or (guess <= random_num + 20 and guess > random_num)
         elif (guess >= random_number - 20 and guess < random_number) or (guess <= random_number + 20 and guess > random_number):
             #add five to score
             score += 5 
-            print(f"your score is {score}")
-            print(f"the random number was {random_number}")
+            print(f"Your score is {score}")
+            print(f"The random number was {random_number}")
             # if (guess >= random_number - 30 and guess < random_number) or (guess <= random_number + 30 and guess > random_number)
         elif (guess >= random_number - 30 and guess < random_number) or (guess <= random_number + 30 and guess > random_number):
     #         # add three to score
             score += 3
-            print(f"your score is {score}")
-            print(f"the random number was {random_number}")
+            print(f"Your score is {score}")
+            print(f"The random number was {random_number}")
             # if (guess >= random_num - 40 and guess < random_num) or (guess <= random_num + 40 and guess > random_num)
         elif (guess >= random_number - 40 and guess < random_number) or (guess <= random_number + 40 and guess > random_number):
                 # add two to score
             score += 2
             # if (guess >= random_num - 50 and guess < random_num) or (guess <= random_num + 50 and guess > random_num)
-            print(f"your score is {score}")
-            print(f"the random number was {random_number}")
+            print(f"Your score is {score}")
+            print(f"The random number was {random_number}")
         elif (guess >= random_number - 50 and guess < random_number) or (guess <= random_number + 50 and guess > random_number):
                 # add one to score
             score += 1
-            print(f"your score is {score}")
-            print(f"the random number was {random_number}")
+            print(f"Your score is {score}")
+            print(f"The random number was {random_number}")
             #else:
         else:
                 #show the user you got no points
-            print(f"your score is {score}")
-            print("you got no points")
+            print(f"Your score is {score}")
+            print(f"The random number was {random_number}")
+           
+            print("You got no points")
         # ask user if they want to play again (yes/no)
-        again = input("do you want to play again yes or no:").strip().lower()
+        again = input("Do you want to play again yes or no:").strip().lower()
             # if yes
         if again == "yes":
                         # quit equals true
@@ -79,6 +83,8 @@ def guessing_game():
         elif again == "no":
             print("goodbye")
             quit = True
+            username = input("Please input your username here: ")
+            main_high("number guess",score, username)
             break
         else:
             print("incorrect input")
@@ -88,6 +94,4 @@ def guessing_game():
     # at end, send back to signed in menu   
     quit == True
 #guessing_game()
-username = input("Please input your username here: ")
-new_score = guessing_game()
-main("number guess",new_score, username)
+

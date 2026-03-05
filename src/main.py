@@ -45,20 +45,23 @@ def main():
 # MENU FOR SIGNED IN
 def signed_in_menu():
     while True:
-        print("tick tack toe = 1, guessing game = 2, view high score = 3 log out = 4")
+        print("Tick tack toe = 1,")
+        print("Guessing game = 2,")
+        print("View high score = 3")
+        print("Log out = 4")
                 # tick tack toe option is 1 
                 # guessing game is 2
                 # view high score is 3 
                 # log out is 4 
                 #  if user choice is 1
-        user_choice = input("please choose one of those numbers: ")
+        user_choice = input("Please choose one of those numbers: ").strip()
         if user_choice == "1":
                 #      then play the function for number guessing game
-            guessing_game()
+            play_tic_tac_toe()
                 #   # else if user choice is 2
         elif user_choice == "2":
                 #       then play the tick tac toe function 
-            play_tic_tac_toe()
+            guessing_game()
                 #   # else if user choice is 3 
         elif user_choice == "3":
                         #play the high score function
