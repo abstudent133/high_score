@@ -1,7 +1,7 @@
 # LV 1st User Authentification
 import csv
 import hashlib
-import random
+import os
 
 # Requirements 
 
@@ -222,10 +222,25 @@ def admin():
         action = input("Enter the number corresponding to what you want to do:\n")
         if action == "1":
             # Call sign up function because LAZY
-            pass
+            sign_up()
         elif action == "2":
             # Oh boy.... I dont want to do this. See LD's personal library
-            pass
+            remove_usrnm = input("Enter the username you would like to remove:\n").strip()
+            temp_filename = "temp_user_info.csv"
+            with open("docs/user_login.csv", mode='r', newline='') as infile, open(temp_filename, mode='a', newline='') as outfile:
+                reader = csv.DictReader(infile)
+                fieldnames = ['username', 'password', 'key']
+                writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+                writer.writeheader()
+
+                for row in reader:
+                    if row['username'] == remove_usrnm:
+                        # Found the username we want gone. Do nothing so that it isn't writen to the outfile
+                        continue
+                    else:
+                        writer.writerow(row)
+            os.remove("docs/user_login.csv")
+            os.rename(temp_filename, "docs/user_login.csv")
         elif action == "3":
             print("Returning to Sign In Menu . . .")
         else:

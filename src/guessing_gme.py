@@ -20,10 +20,15 @@ def guessing_game():
     #   asking the user guess a number bewtween 1 - 500 
         guess_input = input("Guess a number between 1-200:").strip()
         if int(guess_input) == False:
+            guess_input = input("guess a number between 1-200:")
+        if guess_input.isdigit() == False:
             print("Enter a number please")
             continue
     #   save this as a variable under the name guess 
         guess = int(guess_input)
+        if guess > 200 or guess < 1:
+            print("That is a number out of the given range. Please input a number between 1 and 200")
+            continue
         if guess == random_number:
             score += 10
             print(f"Your score is {score}!")
