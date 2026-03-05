@@ -19,8 +19,6 @@ def guessing_game():
         print("Im thinking about a number from 1 - 200")
     #   asking the user guess a number bewtween 1 - 500 
         guess_input = input("Guess a number between 1-200:").strip()
-        if int(guess_input) == False:
-            guess_input = input("guess a number between 1-200:")
         if guess_input.isdigit() == False:
             print("Enter a number please")
             continue
