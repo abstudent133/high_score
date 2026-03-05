@@ -61,6 +61,7 @@ def guessing_game():
             #else:
         else:
                 #show the user you got no points
+                print(f"your score is {score}")
             print("you got no points")
         # ask user if they want to play again (yes/no)
         again = input("do you want to play again yes or no:").strip().lower()
@@ -82,4 +83,4 @@ def guessing_game():
 
     # at end, send back to signed in menu   
     quit == True
-#guessing_game()
+guessing_game()
