@@ -69,17 +69,10 @@ def access_csv(game_name):
         return score_dictionary
 
 #update high scores function
-def update(new_score, score_dictionary, username, score_type):
-# parameters: new_score, score_dictionary, username, score_type
-    # if score_type is "personal"
-    if score_type == "personal":
+def update(new_score, score_dictionary, username,):
+# parameters: new_score, score_dictionary, username
         # search dictionary for username as key
-        scores = score_dictionary.get(username, [])
-    # else if score_type is "overall"
-    elif score_type == "overall":
-        # search dictionary for key "overall"
-    # get the score list for that key
-        scores = score_dictionary.get("overall", [])
+    scores = score_dictionary.get(username, [])
     # check if new_score is greater than the lowest score in the list
     scores.append(new_score)
     # if it is greater
@@ -110,7 +103,7 @@ def update_csv(dictionary, game_name):
     elif game_name == "number guess":
         file_name = "docs/number_guess.csv"
     # open the file in write mode (this will overwrite old data)
-    with open(game_name, "w", newline="") as file:
+    with open(file_name, "w", newline="") as file:
         writer = csv.writer(file)
     # for each key and score list in updated_dictionary
         for key, scores in dictionary.items():
@@ -155,7 +148,7 @@ def formate_overall(dictionary):
         print(f"{i+1}. {username} -> {score}")
 
 #main
-def main(game,new_score,username):
+def main_high(game,new_score,username):
     print("This is the high score tracker.")
     if game == "tic tac toe":
         score_dictionary = access_csv("tic tac toe")

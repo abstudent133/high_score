@@ -1,7 +1,7 @@
 # LV 1st User Authentification
 import csv
 import hashlib
-import random
+import os
 
 # Requirements 
 
@@ -27,15 +27,16 @@ def sign_in():
         username = input("Enter your username: ")
         password = input("Enter your password: ")
         # Open csv and check if username and password match
-        csv_file = open("user_info.csv", "r") # going to change the name of the csv file once we have it   # Note from LD: You can't just have password be compared, it needs to be hashed first (I built a helper function for this, feel free to use it. Just pass in the string you need hashed)
+        csv_file = open("docs/user_login.csv", "r") # going to change the name of the csv file once we have it   # Note from LD: You can't just have password be compared, it needs to be hashed first (I built a helper function for this, feel free to use it. Just pass in the string you need hashed)
         match = True
-        csv_reader = csv.reader(csv_file)
+        csv_reader = csv.DictReader(csv_file)
         match = False
         for row in csv_reader:
-            byte_item = password.encode(row[2])
-            hash_object = hashlib.sha256(byte_item)
-            final_hashed = hash_object.hexdigest()
-            if row[0] == username and row[1] == final_hashed:
+            encoded_string = password.encode('utf-8')
+            hasher = hashlib.sha256()
+            hasher.update(encoded_string)
+            final_hash = hasher.hexdigest()
+            if row['username'] == username and row['password'] == final_hash:
                 match = True
                 break
         csv_file.close()
@@ -82,7 +83,7 @@ def sign_up():
             print("It seems that username is already taken. Please input a different username")
             continue
     while True:
-        the_password = input("Enter the password you would like\nPassword must be 12 characters long, have a number, have an uppercase, have a lowercase, and have a special character:\n").strip()
+        the_password = input("Enter the password you would like\nPassword must be 12 characters long (maximum is 40), have a number, have an uppercase, have a lowercase, and have a special character:\n").strip()
         pass_valid = pass_requirements(the_password)
         if pass_valid == True:
             # password meets requirements. Now check if password avaliable
@@ -99,7 +100,7 @@ def sign_up():
             continue
     # Enter aquired information to csv
     hashed_pass, the_key = hash_item(the_password)
-    with open("src\LD_test.csv", "a", newline="") as csv_file:
+    with open("docs/user_login.csv", "a", newline="") as csv_file:
         fieldnames = ['username', 'password', 'key']
         writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
         writer.writerow({'username': the_username, 'password': hashed_pass, 'key': the_key})
@@ -117,7 +118,7 @@ def pass_requirements(password):
     lowercase = any(char.islower() for char in password)
     digit = any(char.isdigit() for char in password)
     # Getting requirements
-    if len(password) >= 12:
+    if len(password) >= 1 and len(password) <= 40:
         score += 1
     if uppercase == True:
         score += 1
@@ -143,63 +144,44 @@ def item_avaliable(string, column):
     # First, if column == 0, this is USERNAME
     # If column == 1, this is PASSWORD and I need to access the key to hash the given string BEFORE comparing
     # Open file first
-    # If column == 0:
-        # for line in content:
-            # if string != line[0]
-                # continue
-            # else:
-                # the username already made matches the given string. Not a valid username
-                # return False
-        # else:
-            # This will run if loop did not break. If it did not break, username was unique
-            # return True
-    # elif column == 1:
-        # for line in content:
-            # the_key = line[2]
-            # if string(that has been hashed by the_key) != line[1]
-                # continue
-            # else:
-                # the password already made matches the given string. Not a valid password
-                # return False
-        # else:
-            # This will run if loop did not break. If it did not break, password was unique
-            # return True
-    # else:
-        # What in God's name did you do to my code?!?!?!?!? Column should only be 1 or 2
-    csv_file = open("src\LD_test.csv", 'r')
+    avaliable = True
+    csv_file = open("docs/user_login.csv", 'r', newline='')
     csv_reader = csv.DictReader(csv_file)
     if column == 0:
         for line in csv_reader:
-            if string != line[0]:
-                continue
-            else:
+            if string == line['username']:
+                avaliable = False # found a match meaning item is not unique
                 break
-        else:
-            # this should only happen if for loop did not break
-            return False # found a match meaning item is not unique
+            else:
+                continue
     elif column == 1:
         for line in csv_reader:
             # First hash the string (password) with the key in the line
-            byte_item = string.encode(line[2])
-            hash_object = hashlib.sha256(byte_item)
-            final_hashed = hash_object.hexdigest()
-            if final_hashed != line[1]:
-                continue
-            else:
+            encoded_string = string.encode('utf-8')
+            hasher = hashlib.sha256()
+            hasher.update(encoded_string)
+            final_hash = hasher.hexdigest()
+            if final_hash == line['password']:
+                # Found a match. Invalid
+                avaliable = False
                 break
-        else:
-            # this should only happen if for loop did not break
-            return False # found a match meaning item is not unique
+            else:
+                continue
     else:
-        print("What the hell?")   
+        print("What the hell?")  
+    return avaliable 
 
 def hash_item(hash_item):
-    keys_to_use = ['sha1()', 'sha224()', 'sha256()', 'sha384()', 'sha512()', 'sha3_224()', 'sha3_256()', 'sha3_384()', 'sha3_512()', 'shake_128()', 'shake_256()', 'blake2b()', 'blake2s()']
-    random_hasher = random.choice(keys_to_use)
-    byte_item = hash_item.encode(random_hasher)
-    hash_object = hashlib.sha256(byte_item)
-    final_hashed = hash_object.hexdigest()
-    return final_hashed, random_hasher
+    encoded_string = hash_item.encode('utf-8')
+    hash_object = hashlib.sha256()
+    hash_object.update(encoded_string)
+    hex_hash = hash_object.hexdigest()
+
+    #random_hasher = random.choice(keys_to_use)
+    #byte_item = hash_item.encode(random_hasher)
+    #hash_object = hashlib.sha256(byte_item)
+    #final_hashed = hash_object.hexdigest()
+    return hex_hash, 'sha256()'
 
 # ADMIN FUNCTIONALITY
 # Information is already established when csv is created
@@ -218,7 +200,7 @@ def hash_item(hash_item):
 def admin():
     username = input("Enter the Admin Username:\n").strip()
     valid_usrnm = item_avaliable(username, 0)
-    if valid_usrnm != True:
+    if valid_usrnm == False:
         # Username MATCHES, this what I want. Now do password
         pass
     else:
@@ -227,7 +209,7 @@ def admin():
         exit()
     password = input("Enter the Admin Password:\n").strip()
     valid_pass = item_avaliable(password, 1)
-    if valid_pass != True:
+    if valid_pass == False:
         # Password MATCHES, that what I want.
         pass
     else:
@@ -240,10 +222,25 @@ def admin():
         action = input("Enter the number corresponding to what you want to do:\n")
         if action == "1":
             # Call sign up function because LAZY
-            pass
+            sign_up()
         elif action == "2":
             # Oh boy.... I dont want to do this. See LD's personal library
-            pass
+            remove_usrnm = input("Enter the username you would like to remove:\n").strip()
+            temp_filename = "temp_user_info.csv"
+            with open("docs/user_login.csv", mode='r', newline='') as infile, open(temp_filename, mode='a', newline='') as outfile:
+                reader = csv.DictReader(infile)
+                fieldnames = ['username', 'password', 'key']
+                writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+                writer.writeheader()
+
+                for row in reader:
+                    if row['username'] == remove_usrnm:
+                        # Found the username we want gone. Do nothing so that it isn't writen to the outfile
+                        continue
+                    else:
+                        writer.writerow(row)
+            os.remove("docs/user_login.csv")
+            os.rename(temp_filename, "docs/user_login.csv")
         elif action == "3":
             print("Returning to Sign In Menu . . .")
         else:

@@ -1,20 +1,17 @@
 # \/ By AB
 #This is the tic tac toe game section
 import random
-
+from high_score import*
 # function: play_tic_tac_toe
-<<<<<<< HEAD:tic_tac_toe.py
 def play_tic_tac_toe():
+    print("This is a game of tic tac toe. Everytime you win a round you get a point.")
     # set player_score to 0
     player_score = 0
-    # set round_counter to 1
-    round_counter = 1 
-    # while round_counter is less than or equal to 10
-    while round_counter <= 10:
+    play = True
         # display message showing current round number
-        print(f"You are on round {round_counter}/10.")
+    while play == True:
+        print(f"You are on round {round_counter}.")
         # create empty tic tac toe board
-        board_num = [[1,2,3],[4,5,6],[7,8,9]]
         board = [[" "," "," "],[" "," "," "],[" "," "," "]]
             # board should be 3x3 grid
             # each space starts empty
@@ -106,64 +103,32 @@ def play_tic_tac_toe():
                 game_over = True
             elif win == False:
                 print("You lose.")
-            
+            quit = input("Would you like to quit? yes or no: ").lower()
+            while True:
+                if quit == "yes":
+                    print("Thanks for playing!")
+                    play = False
+
+                    break
+                elif quit == "no":
+                    round_counter += 1
+                    break
+                else:
+                    print("Sorry that was an incorrect input. Choose again. You must input yes or no.")
+        
         
         # after round ends
         # add 1 to round_counter by 1
-        round_counter += 1
+        
     # after 10 rounds are complete
-    if round_counter == 10:
     # display final score message
         # "You won X out of 10 rounds."
-        print(f"You won {player_score}/10 rounds.")
+        username = input("Please input your username here: ")
+        print(f"Your score is {player_score}.") 
+        main_high("number guess",player_score, username)
     #return final score
     return player_score
 
-play_tic_tac_toe()
-=======
-# set player_score to 0
-# set round_counter to 1
-# while round_counter is less than or equal to 10
-    # display message showing current round number
-    # create empty tic tac toe board
-        # board should be 3x3 grid
-        # each space starts empty
-    # set current_player to "X" (user)
-    # game_over = False
-    # while game_over is False
-        # display current board
-        # if current_player is "X"
-            # ask user for row and column input
-            # check if space is valid and empty
-                # if valid, place "X" in that space
-                # if not valid, ask again
-        # else if current_player is "O"
-            # generate computer move
-                # choose random empty space
-            # place "O" in chosen space
-        # check if current_player has won
-            # check rows
-            # check columns
-            # check diagonals
-            # if win condition met
-                # if current_player is "X"
-                    # add 1 to player_score
-                # display winner message
-                # set game_over to True
-        # else check if board is full (tie)
-            # if tie
-                # display tie message
-                # set game_over to True
-        # if game not over
-            # switch current_player
-                # if "X" change to "O"
-                # if "O" change to "X"
-    # after round ends
-    # add 1 to round_counter by 1
-# after 10 rounds are complete
-# display final score message
-    # "You won X out of 10 rounds."
-#return final score
-# send back to signed in menu
->>>>>>> 65b8331cc9b79ea972627c118e883b71220e95b1:src/tic_tac_toe.py
+#play_tic_tac_toe()
+
 
