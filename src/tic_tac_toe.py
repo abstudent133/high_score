@@ -4,14 +4,13 @@ import random
 from high_score import*
 # function: play_tic_tac_toe
 def play_tic_tac_toe():
+    print("This is a game of tic tac toe. Everytime you win a round you get a point.")
     # set player_score to 0
     player_score = 0
-    # set round_counter to 1
-    round_counter = 1 
-    # while round_counter is less than or equal to 10
-    while round_counter <= 10:
+    play = True
         # display message showing current round number
-        print(f"You are on round {round_counter}/10.")
+    while play == True:
+        print(f"You are on round {round_counter}.")
         # create empty tic tac toe board
         board = [[" "," "," "],[" "," "," "],[" "," "," "]]
             # board should be 3x3 grid
@@ -104,21 +103,32 @@ def play_tic_tac_toe():
                 game_over = True
             elif win == False:
                 print("You lose.")
-            
+            quit = input("Would you like to quit? yes or no: ").lower()
+            while True:
+                if quit == "yes":
+                    print("Thanks for playing!")
+                    play = False
+
+                    break
+                elif quit == "no":
+                    round_counter += 1
+                    break
+                else:
+                    print("Sorry that was an incorrect input. Choose again. You must input yes or no.")
+        username = input("Please input your username here: ") 
+        new_score = play_tic_tac_toe()
+        main_high("number guess",new_score, username)
         
         # after round ends
         # add 1 to round_counter by 1
-        round_counter += 1
+        
     # after 10 rounds are complete
-    if round_counter == 10:
     # display final score message
         # "You won X out of 10 rounds."
-        print(f"You won {player_score}/10 rounds.")
+        print(f"Your score is {player_score}.")
     #return final score
     return player_score
 
 #play_tic_tac_toe()
-username = input("Please input your username here: ")
-new_score = play_tic_tac_toe()
-main("number guess",new_score, username)
+
 
