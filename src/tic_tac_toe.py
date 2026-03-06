@@ -87,7 +87,7 @@ def play_tic_tac_toe():
                 win = False
             elif board[0][2] == "O" and board[1][1] == "O" and board[2][0] == "O":
                 win = False
-            elif board[0] != [" "," "," "] and board[1] != [" "," "," "] and board[2] != [" "," "," "]:
+            elif " " not in board[0] and " " not in board[1] and " " not in board[2]:
                 win = False
             else:
                 continue
