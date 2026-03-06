@@ -41,18 +41,10 @@ import csv
 def access_csv(game_name):
 # parameters: game_name
     # determine which game file should be opened
-    # if game_name is "tic_tac_toe"
-    if game_name == "tic tac toe":
-        # set file_name to tic_tac_toe_high_scores.csv
-        file_name = "docs/tic_tac_toe.csv"
-    # else if game_name is "number_guess"
-    elif game_name == "number guess":
-        # set file_name to number_guess_high_scores.csv
-        file_name = "docs/number_guess.csv"
     # create empty dictionary called score_dictionary
     score_dictionary = {}
     # open the selected csv file
-    with open(file_name, mode="r+") as csv_file:
+    with open(game_name, mode="r") as csv_file:
         content = csv.reader(csv_file)
         # for each row in the csv file
         for line in content:
