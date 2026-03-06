@@ -37,104 +37,122 @@
 #import csv
 import csv
 
-#access csv
-def access_csv(game_path):
-# parameters: game_name
-    # determine which game file should be opened
-    # create empty dictionary called score_dictionary
-    score_dictionary = {}
-    # open the selected csv file
-    with open(game_path, mode="r") as csv_file:
-        content = csv.reader(csv_file)
-        # for each row in the csv file
-        for line in content:
-            # first value should be the user id (key)
-            # remaining values should be the list of top 5 scores
-            # convert score values from string to integer
-            if not line:
-                continue
-            username = line[0]
-            scores = []
-            for score in line[1:]:
-                scores.append(int(score))
-            score_dictionary[username] = scores
-        # close the file
-        # return score_dictionary
-        return score_dictionary
+#access csv function
+def access_csv(game_name):
+    # parameters: game_name
+    # If the file does not exist, create it with a header row and return an empty dictionary
 
-#update high scores function
-def update(new_score, score_dictionary, username):
-# parameters: new_score, score_dictionary, username
-        # search dictionary for username as key
-    scores = score_dictionary.get(username, [])
-    # check if new_score is greater than the lowest score in the list
-    scores.append(new_score)
-    scores.sort(reverse=True)
-    # update dictionary with modified score list
-    scores = scores[:10]
-    score_dictionary[username] = scores
-    # return updated dictionary
-    return score_dictionary
+    # determine the correct CSV file path based on the game
+    if game_name.lower() == "tic tac toe":
+        path = "docs/tic_tac_toe.csv"
+    elif game_name.lower() in ["number guess", "num guessing"]:
+        path = "docs/num_guessing.csv"
+    else:
+        # if game name doesn't match expected games, just default to number guessing CSV
+        path = "docs/num_guessing.csv"
 
-# update csv function
-def update_csv(dictionary, game_name):
-# parameters: updated_dictionary, game_name
-    # determine which csv file to open based on game_name
-    if game_name == "tic tac toe":
-        file_name = "docs/tic_tac_toe.csv"
-    elif game_name == "number guess":
-        file_name = "docs/number_guess.csv"
-    # open the file in write mode (this will overwrite old data)
-    with open(file_name, "w", newline="") as file:
-        writer = csv.writer(file)
-    # for each key and score list in updated_dictionary
-        for key, scores in dictionary.items():
-        # write a row to the csv
-            row = [key] + scores
+    score_dict = {}  
+    # empty dictionary to store all users and their scores
+
+    try:
+        # try to open the file in read mode
+        with open(path, "r") as f:
+            reader = csv.reader(f)
+            next(reader, None)  
+            # skip the header row (username, score_1, score_2, ...)
+            # loop through each row in the CSV
+            for line in reader:
+                if not line:
+                    continue  # skip empty lines
+                username = line[0]  # first item is the username
+                scores = []
+                # convert the remaining items in the row to integers (the scores)
+                for s in line[1:]:
+                    try:
+                        scores.append(int(s))
+                    except ValueError:
+                        continue  # skip any invalid score strings
+                score_dict[username] = scores  # store in dictionary
+    except FileNotFoundError:
+        # if the file does not exist, create it with a header row
+        with open(path, "w", newline="") as file:
+            writer = csv.writer(file)
+            # header row: username, score_1, score_2, ... score_10
+            writer.writerow(["username"] + [f"score_{i+1}" for i in range(10)])
+        score_dict = {}  # return empty dictionary because no data exists yet
+
+    return score_dict  # return the dictionary of scores
+
+
+# update high scores function
+def update(new_score, score_dict, username):
+    # parameters: new_score, score_dict, username
+    scores = score_dict.get(username, [])  # get current scores for the user, or empty list if new user
+    scores.append(new_score)  # add the new score
+    scores.sort(reverse=True)  # sort scores from highest to lowest
+    score_dict[username] = scores[:10]  # keep only top 10 scores
+    return score_dict  # return updated dictionary
+
+
+# --- Save dictionary back to CSV ---
+def update_csv(score_dict, game_name):
+    # parameters: score_dict, game_name
+    if game_name.lower() == "tic tac toe":
+        path = "docs/tic_tac_toe.csv"
+    elif game_name.lower() in ["number guess", "num guessing"]:
+        path = "docs/num_guessing.csv"
+    else:
+        path = "docs/num_guessing.csv"  # default
+
+    with open(path, "w", newline="") as f:
+        writer = csv.writer(f)
+        # write header row
+        writer.writerow(["username"] + [f"score_{i+1}" for i in range(10)])
+        # loop through dictionary and write each user + their scores
+        for user, scores in score_dict.items():
+            row = [user] + scores
             writer.writerow(row)
-            # first value = user id
-            # remaining values = top ten scores
-    # close the file
 
-# formate individual function
-def formate_individual(score_list, username):
-# parameters: score_list, username
-    # display header that includes the username
-    print(f"Username: {username}")
-    # sort score_list from highest to lowest
-    num = 1
-    score_list = sorted(score_list,reverse = True)
+
+# --- Format individual user scores ---
+def format_individual(score_list, username):
+    # parameters: score_list, username
+    print(f"\nUsername: {username}")
     print("Scores:")
-    # loop through scores
-    for score in score_list:
-        # display rank number and score
-        print(f"{num}. {score}")
-        num += 1
-        
-   
-#formate overall funtion
-def formate_overall(dictionary):
-#parameters: dictionary
-    all_scores = []
-# gather all scores from dictionary
-    for username, scores in dictionary.items():
-        for score in scores:
-            all_scores.append((username, score))
-# sort from highest to lowest
-    all_scores.sort(key=lambda x: x[1], reverse = True)
-    print("Top 5 Overall Scores:")
-# take top five
-    for i in range(min(5, len(all_scores))):
-        username, score = all_scores[i]
-# display username associated with each score
-        print(f"{i+1}. {username} -> {score}")
+    # enumerate allows us to loop through the list and also have a counter automatically
+    for num, score in enumerate(sorted(score_list, reverse=True), start=1):
+        print(f"{num}. {score}")  # display rank number and score
 
-#main
-def main_high(game,new_score,username):
-    print("This is the high score tracker.")
-    #Use access then update then update csv the formate individual then formate overall
-    score_dictionary = access_csv(game)
-    score_dictionary = update(new_score,score_dictionary,username)
-    update_csv(score_dictionary,game)
-    formate_individual(score_dictionary.get(username, []),username)
-    formate_overall(score_dictionary)
+
+# --- Format top 5 overall scores ---
+def format_overall(score_dict):
+    # parameters: score_dict (dict)
+    # purpose: display the top 5 scores from all users
+    all_scores = []
+    # gather all scores from all users into a single list
+    for user, scores in score_dict.items():
+        for s in scores:
+            all_scores.append((user, s))  # store as tuple (username, score)
+
+    # sort all scores from highest to lowest using the second item in the tuple (score)
+    all_scores.sort(key=lambda x: x[1], reverse=True)
+
+    print("Top 5 Overall Scores:")
+    # show only the top 5 scores
+    for num, (user, score) in enumerate(all_scores[:5], start=1):
+        print(f"{num}. {user} -> {score}")
+
+
+# --- Main high score workflow ---
+def main_high(game_name, new_score, username):
+    # parameters: game_name, new_score, username
+    print(" Score Tracker:")
+    scores = access_csv(game_name)  
+    # get existing scores
+    scores = update(new_score, scores, username)  
+    # update scores with new score
+    update_csv(scores, game_name)  
+    # save updated scores back to CSV
+    format_individual(scores.get(username, []), username) 
+     # show individual scores
+    format_overall(scores)  # show top 5 overall

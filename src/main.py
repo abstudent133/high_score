@@ -64,15 +64,11 @@ def signed_in_menu():
             guessing_game()
                 #   # else if user choice is 3 
         elif user_choice == "3":
-                        #play the high score function
-            tic_dictionary = access_csv("docs/tic_tac_toe.csv")
-            num_dictionary = access_csv("docs/num_guessing.csv")
             username = input("Please input your username again here: ")
-            print("These are you high scores for tic tac toe:")
-            formate_individual(tic_dictionary.get(username,[]),username)
-            print("These are you number guessing game high scores:")
-            formate_individual(num_dictionary.get(username), username)
-                #  if user choice is 4
+            print("Tic Tac Toe High Scores:")
+            main_high("tic tac toe", 0, username)   # 0 = no new score
+            print("Number Guessing Game High Scores:")
+            main_high("number guess", 0, username)
         elif user_choice == "4":
                         #then have them log out and sent to main menu for sign in and such 
             main()

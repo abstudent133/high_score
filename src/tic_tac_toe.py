@@ -126,7 +126,7 @@ def play_tic_tac_toe():
         # "You won X out of 10 rounds."
         username = input("Please input your username here: ")
         print(f"Your score is {player_score}.") 
-        main_high("number guess",player_score, username)
+        main_high("tic tac toe",player_score, username)
     #return final score
     return player_score
 
