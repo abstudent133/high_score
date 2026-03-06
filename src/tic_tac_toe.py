@@ -43,7 +43,11 @@ def play_tic_tac_toe():
                         continue 
                     else: 
                         row = int(row)
-                        break 
+                        if row > 3 or row < 1:
+                            print("That is a row out of range. Please pick a row between 1 and 3")
+                            continue
+                        else:
+                            break 
                 while True: 
                     column = input("Please input the column number of the positon you want to place here: ")
                     if column.isdigit() == False: 
@@ -51,7 +55,11 @@ def play_tic_tac_toe():
                         continue 
                     else: 
                         column = int(column)   
-                        break 
+                        if column > 3 or column < 1:
+                            print("That is a column out of range. Please pick a column between 1 and 3")
+                            continue
+                        else:
+                            break  
                 
 
                 # check if space is valid and empty
@@ -120,8 +128,8 @@ def play_tic_tac_toe():
                 game_over = True
             elif win == False:
                 print("You lose.")
-            quit = input("Would you like to quit? yes or no: ").lower()
             while True:
+                quit = input("Would you like to quit? yes or no: ").lower().strip()
                 if quit == "yes":
                     print("Thanks for playing!")
                     play = False
@@ -132,6 +140,7 @@ def play_tic_tac_toe():
                     break
                 else:
                     print("Sorry that was an incorrect input. Choose again. You must input yes or no.")
+                    continue
         
         
         # after round ends
