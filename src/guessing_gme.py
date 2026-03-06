@@ -6,7 +6,7 @@ from high_score import*
 def guessing_game():
     score = 0
     # show the user hello you have entered the numbers guessing game 
-    print("Hello you have entered the numbers guessing game!")
+    print("\nHello you have entered the numbers guessing game!")
     # the point of this game is to guess a number between 1 - 500
     print("The point of this game is to guess a number between 1- 200")
     # quit is equal to false 
@@ -16,9 +16,9 @@ def guessing_game():
     #   get a random number in the range of 1 - 500
         random_number = random.randint(1,201)
     #   show the user im thinking abt a number from 1 - 500 how abt you guess
-        print("Im thinking about a number from 1 - 200")
+        print("\nIm thinking about a number from 1 - 200")
     #   asking the user guess a number bewtween 1 - 500 
-        guess_input = input("Guess a number between 1-200:").strip()
+        guess_input = input("Guess a number between 1-200:\n").strip()
         if guess_input.isdigit() == False:
             print("Enter a number please")
             continue
@@ -79,8 +79,9 @@ def guessing_game():
             continue
                     # else:
         elif again == "no":
-            print("goodbye")
+            print("Goodbye!")
             quit = True
+            print("\nYour high score needs to be updated!")
             username = input("Please input your username here: ")
             main_high("docs/num_guessing.csv",score, username)
             break
@@ -89,6 +90,4 @@ def guessing_game():
     
     return score
 
-    # at end, send back to signed in menu   
-#guessing_game()
-
+    # at end, send back to signed in menu

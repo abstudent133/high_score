@@ -51,7 +51,7 @@ def sign_in():
             choice = input("Try again? (yes / no): ")
         # If choice is no, exit program
         if choice == "no":
-            exit() # main() or exit()
+            return # Get them back to the sign in function
         # Else, continue loop to try again
         else:
             continue
