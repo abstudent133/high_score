@@ -43,10 +43,11 @@ def main():
 # MENU FOR SIGNED IN
 def signed_in_menu():
     while True:
-        print("Tick tack toe = 1,")
-        print("Guessing game = 2,")
-        print("View high score = 3")
-        print("Log out = 4")
+        print("\n---Game Menu---")
+        print("Tic Tac Toe = 1,")
+        print("Guessing Game = 2,")
+        print("View High Score = 3")
+        print("Log Out = 4")
                 # tick tack toe option is 1 
                 # guessing game is 2
                 # view high score is 3 

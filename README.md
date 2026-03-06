@@ -1,6 +1,7 @@
 # High Score Tracker
 ***
-![Image of code while running](docs/README-pic-march-third.png)
+![Image of code (tic tac toe game) while running](docs/README-pic-march-third.png)
+
 Our project is a program mainly centered around being able to read, edit and save in other files.
 The main goal was to be able to save user's high scores, and then be able to edit the high scores when a new score is created. 
 The scores were obtained from playing simple games, like tic tac toe and a number guessing game.

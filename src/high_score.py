@@ -118,7 +118,7 @@ def update_csv(score_dict, game_name):
 def format_individual(score_list, username):
     # parameters: score_list, username
     print(f"\nUsername: {username}")
-    print("Scores:")
+    print("Personal Scores:")
     # enumerate allows us to loop through the list and also have a counter automatically
     for num, score in enumerate(sorted(score_list, reverse=True), start=1):
         print(f"{num}. {score}")  # display rank number and score

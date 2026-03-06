@@ -4,7 +4,7 @@ import random
 from high_score import*
 # function: play_tic_tac_toe
 def play_tic_tac_toe():
-    print("This is a game of tic tac toe. Everytime you win a round you get a point.")
+    print("\nThis is a game of tic tac toe. Everytime you win a round you get a point.")
     # set player_score to 0
     player_score = 0
     play = True
@@ -149,12 +149,9 @@ def play_tic_tac_toe():
     # after 10 rounds are complete
     # display final score message
         # "You won X out of 10 rounds."
+        print("\nYour high scores need to be updated!")
         username = input("Please input your username here: ")
         print(f"Your score is {player_score}.") 
         main_high("docs/tic_tac_toe.csv",player_score, username)
     #return final score
     return player_score
-
-#play_tic_tac_toe()
-
-
