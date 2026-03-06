@@ -52,13 +52,16 @@ def access_csv(game_name):
     # create empty dictionary called score_dictionary
     score_dictionary = {}
     # open the selected csv file
-    with open(file_name, mode="r+") as csv_file:
+    with open(file_name, mode="r") as csv_file:
         content = csv.reader(csv_file)
         # for each row in the csv file
         for line in content:
             # first value should be the user id (key)
             # remaining values should be the list of top 5 scores
             # convert score values from string to integer
+            for line in content:
+                if not line:
+                    continue
             username = line[0]
             scores = []
             for score in line[1:]:
@@ -69,28 +72,16 @@ def access_csv(game_name):
         return score_dictionary
 
 #update high scores function
-def update(new_score, score_dictionary, username,):
+def update(new_score, score_dictionary, username):
 # parameters: new_score, score_dictionary, username
         # search dictionary for username as key
     scores = score_dictionary.get(username, [])
     # check if new_score is greater than the lowest score in the list
     scores.append(new_score)
-    # if it is greater
-            # add new_score to the list
-            # sort the list from highest to lowest
-            # remove the lowest score so only top ten remain
+    scores.sort(reverse=True)
     # update dictionary with modified score list
-    for score in scores:
-        if new_score >= score:
-            if new_score == score[0]:
-                continue
-            else:
-                scores.append(new_score)
-                scores = scores.sort()
-                score.remove(scores[0])
-                score_dictionary[username] = scores
-        else:
-            continue
+    scores = scores[:10]
+    score_dictionary[username] = scores
     # return updated dictionary
     return score_dictionary
 
@@ -120,8 +111,8 @@ def formate_individual(score_list, username):
     # display header that includes the username
     print(f"Username: {username}")
     # sort score_list from highest to lowest
-    num = 0
-    score_list = score_list.sort()
+    num = 1
+    score_list = sorted(score_list,reverse = True)
     print("Scores:")
     # loop through scores
     for score in score_list:
@@ -139,10 +130,10 @@ def formate_overall(dictionary):
         for score in scores:
             all_scores.append((username, score))
 # sort from highest to lowest
-    all_scores.sort(key=lambda x: x[1])
+    all_scores.sort(key=lambda x: x[1], reverse = True)
     print("Top 5 Overall Scores:")
 # take top five
-    for i in range(5):
+    for i in range(min(5, len(all_scores))):
         username, score = all_scores[i]
 # display username associated with each score
         print(f"{i+1}. {username} -> {score}")
@@ -150,21 +141,12 @@ def formate_overall(dictionary):
 #main
 def main_high(game,new_score,username):
     print("This is the high score tracker.")
-    if game == "tic tac toe":
-        score_dictionary = access_csv("tic tac toe")
-        score_dictionary = update(new_score,score_dictionary,username,"personal")
-        score_dictionary = update(new_score,score_dictionary,username,"overall")
-        update_csv(score_dictionary,"tic tac toe")
-        formate_individual(score_dictionary.get(username),username)
-        formate_overall(score_dictionary)
-    else:
-        score_dictionary = access_csv("number guess")
-        score_dictionary = update(new_score,score_dictionary,username,"personal")
-        score_dictionary = update(new_score,score_dictionary,username,"overall")
-        update_csv(score_dictionary,"number guess")
-        formate_individual(score_dictionary.get(username),username)
-        formate_overall(score_dictionary)
-        
+    #Use access then update then update csv the formate individual then formate overall
+    score_dictionary = access_csv(game)
+    score_dictionary = update(new_score,score_dictionary,username)
+    update_csv(score_dictionary,game)
+    formate_individual(score_dictionary.get(username, []),username)
+    formate_overall(score_dictionary)
 
 
 
