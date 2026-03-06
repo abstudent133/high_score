@@ -31,9 +31,7 @@ def main():
             sign_up()
             signed_in_menu()
         elif choice == "3":
-            # admin() # Change name once the function is made
-            print("Admin functionality unavaiable as of this moment. Pick something else")
-            continue
+            admin()
         elif choice == "4":
             print("Thank you for using High Score! Goodbye!")
             exit()
