@@ -39,7 +39,7 @@ def main():
             exit()
         else:
             print("Please enter a valid choice (1, 2, 3, or 4)")
-            main() # Return to main menu
+            # Return to main menu
 
 # \/ By IC
 # MENU FOR SIGNED IN
@@ -65,11 +65,11 @@ def signed_in_menu():
                 #   # else if user choice is 3 
         elif user_choice == "3":
                         #play the high score function
-            tic_dictionary = access_csv("tic tac toe")
-            num_dictionary = access_csv("number guess")
+            tic_dictionary = access_csv("docs/tic_tac_toe.csv")
+            num_dictionary = access_csv("docs/num_guessing.csv")
             username = input("Please input your username again here: ")
             print("These are you high scores for tic tac toe:")
-            formate_individual(tic_dictionary.get(username),username)
+            formate_individual(tic_dictionary.get(username,[]),username)
             print("These are you number guessing game high scores:")
             formate_individual(num_dictionary.get(username), username)
                 #  if user choice is 4
