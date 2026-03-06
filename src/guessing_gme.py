@@ -82,7 +82,7 @@ def guessing_game():
             print("goodbye")
             quit = True
             username = input("Please input your username here: ")
-            main_high("number guess",score, username)
+            main_high("docs/num_guessing.csv",score, username)
             break
         else:
             print("incorrect input")
@@ -90,6 +90,5 @@ def guessing_game():
     return score
 
     # at end, send back to signed in menu   
-    quit == True
 #guessing_game()
 

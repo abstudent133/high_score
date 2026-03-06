@@ -37,7 +37,7 @@ def main():
             exit()
         else:
             print("Please enter a valid choice (1, 2, 3, or 4)")
-            # Return to main menu
+            main() # Return to main menu
 
 # \/ By IC
 # MENU FOR SIGNED IN

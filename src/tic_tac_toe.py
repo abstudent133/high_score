@@ -86,7 +86,7 @@ def play_tic_tac_toe():
                     # choose random empty space
                 # place "O" in chosen space
             # check if current_player has won
-            win = ""
+            win = None
             if board[0] == ["X","X","X"] or board[1] == ["X","X","X"] or board[2] == ["X","X","X"]:
                 win = True
             elif board[0][0] == "X" and board[1][0] == "X" and board[2][0] == "X":
@@ -111,7 +111,7 @@ def play_tic_tac_toe():
                 win = False
             elif board[0][2] == "O" and board[1][1] == "O" and board[2][0] == "O":
                 win = False
-            elif " " not in board[0] and " " not in board[1] and " " not in board[2]:
+            elif board[0] != [" "," "," "] and board[1] != [" "," "," "] and board[2] != [" "," "," "]:
                 win = False
             else:
                 continue
@@ -151,7 +151,7 @@ def play_tic_tac_toe():
         # "You won X out of 10 rounds."
         username = input("Please input your username here: ")
         print(f"Your score is {player_score}.") 
-        main_high("tic tac toe",player_score, username)
+        main_high("docs/tic_tac_toe.csv",player_score, username)
     #return final score
     return player_score
 
