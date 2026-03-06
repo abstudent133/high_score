@@ -213,7 +213,6 @@ def admin():
     else:
         print("Invalid username. Returning to Sign In Menu . . .")
         # Go to that function? or it's in a while loop and thus return
-        exit()
     password = input("Enter the Admin Password:\n").strip()
     valid_pass = item_avaliable(password, 1)
     if valid_pass == False:
@@ -222,7 +221,6 @@ def admin():
     else:
         print("Invalid password. Returning to Sign In Menu . . .")
         # Go to that function? or it's in a while loop and thus return
-        exit()
     # IN THEORY the username and password are valid and now need to do the special admin capabilities
     while True:
         print("What would you like to do:\n1) Add a User\n2) Remove a User\n3) Go Back to Sign In Menu")
@@ -250,6 +248,7 @@ def admin():
             os.rename(temp_filename, "docs/user_login.csv")
         elif action == "3":
             print("Returning to Sign In Menu . . .")
+            return
         else:
             print("Invalid input. Please try again")
             continue
