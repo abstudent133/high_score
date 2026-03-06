@@ -36,8 +36,24 @@ def play_tic_tac_toe():
             # if current_player is "X"
             if current_player == "X":
                 # ask user for row and column input
-                row = int(input("Please input the row number of the positon you want to place here: "))
-                column = int(input("Please input the column number of the positon you want to place here: "))
+                while True: 
+                    row = input("Please input the row number of the positon you want to place here: ")
+                    if row.isdigit() == False: 
+                        print("please enter a number")
+                        continue 
+                    else: 
+                        row = int(row)
+                        break 
+                while True: 
+                    column = input("Please input the column number of the positon you want to place here: ")
+                    if column.isdigit() == False: 
+                        print("please enter a number")
+                        continue 
+                    else: 
+                        column = int(column)   
+                        break 
+                
+
                 # check if space is valid and empty
                     # if valid, place "X" in that space
                 if [row-1,column-1] in valid and board[row-1][column-1] == " ":
